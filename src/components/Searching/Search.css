@@ -1,0 +1,15 @@
+.searching {
+    margin-bottom: 1rem;
+}
+
+.searching input {
+    height: 2rem;
+    width: 20%;
+    padding-left: 1rem;
+}
+
+.card_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}

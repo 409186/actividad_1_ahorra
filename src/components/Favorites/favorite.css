@@ -1,0 +1,12 @@
+.card_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter_pokemon {
+    height: 2rem;
+    width: 20%;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
