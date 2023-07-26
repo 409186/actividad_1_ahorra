@@ -8,12 +8,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { firstLetterMayus } from './Search.utils';
 import './Search.css'
+import Modal from "../Modal/Modal";
 
 const Search = () => {
 
     const [data, setData] = useState([])
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([])
+    const [modalOpen, setModalOpen] = useState(false)
   
     const fetchPokemon = async() => {
         const pokemon = await getPokemon()
@@ -32,7 +34,14 @@ const Search = () => {
         setSearch(event.target.value);
     };
 
-    const agregarFavorito = (favorite) => {
+    // modal
+    
+    const closeModal = () => {
+        setModalOpen(false);
+    };
+
+    const addFavoritePokemon = (favorite) => {
+        setModalOpen(true);
         let listPokemonFavorite = sessionStorage.getItem("favorites")
         if(listPokemonFavorite){
             const parsedListFavorites = JSON.parse(listPokemonFavorite)
@@ -59,6 +68,10 @@ const Search = () => {
         setResults(filteredResults)
     }, [data, search])
 
+    // useEffect(() => {
+    //     console.log("Results =>", results)
+    // }, [results])
+
 return (
     <div>
         <div className="searching">
@@ -78,14 +91,20 @@ return (
                         </Typography>
                         <Typography variant="body2" color="text.secondary">ID: {pok.id}</Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Habilidades: {pok.abilities.map(a => <ul><li>{firstLetterMayus(a.ability.name)}</li></ul>)}
+                            Habilidades: {pok.abilities.map(a => <ul><li key={a.ability.slot}>{firstLetterMayus(a.ability.name)}</li></ul>)}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Tipo: {pok.types.map(a => <ul><li>{firstLetterMayus(a.type.name)}</li></ul>)}
+                            Tipo: {pok.types.map(a => <ul><li key={a.type.slot}>{firstLetterMayus(a.type.name)}</li></ul>)}
                         </Typography>
                     </CardContent>
                     <CardActions sx={{ display: "flex", justifyContent: 'center' }}>
-                        <Button variant="contained" onClick={() => agregarFavorito(pok)} size="small">Agregar a favoritos</Button>
+                        <Button variant="contained" onClick={() => addFavoritePokemon(pok)} size="small">Agregar a favoritos</Button>
+
+                        <Modal isOpen={modalOpen} onClose={closeModal}>
+                            <h2>Agregado a favoritos</h2>
+                            <p>Se ha agregado de forma correcta.</p>
+                            <Button variant="contained" onClick={closeModal} size="small">Cerrar</Button>
+                        </Modal>
                     </CardActions>
                 </Card>
             ))}

@@ -72,10 +72,10 @@ const Favorites = () => {
                             </Typography>
                             <Typography variant="body2" color="text.secondary">ID: {pok.id}</Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Habilidades: {pok.abilities.map(a => <ul><li>{firstLetterMayus(a.ability.name)}</li></ul>)}
+                                Habilidades: {pok.abilities.map(a => <ul><li key={a.ability.slot}>{firstLetterMayus(a.ability.name)}</li></ul>)}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Tipo: {pok.types.map(a => <ul><li>{a.type.name}</li></ul>)}
+                                Tipo: {pok.types.map(a => <ul><li key={a.type.slot}>{a.type.name}</li></ul>)}
                             </Typography>
                         </CardContent>
                         <CardActions sx={{ display: "flex", justifyContent: 'center' }}>
